@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using System.Collections.Generic;
+using Assets.Scripts.Call;
 
 public class CallLogic : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class CallLogic : MonoBehaviour
     public AudioSource internalAudio; // Картинка внутри
     public GameObject callPrefab;
 
+    private List<CallObject> callObjects = new List<CallObject>();
+
     // Метод для генерации таблицы 3x3
     void Start()
     {
@@ -27,12 +30,14 @@ public class CallLogic : MonoBehaviour
         for (int i = 0; i < callsData.Count; i++)
         {
             GameObject newImage = Instantiate(callPrefab, gridParent);
-            Image imgComponent = newImage.GetComponent<Image>();
-            imgComponent.sprite = callsData[i].externalImage; // Используем данные из Scriptable Object
+            var obj = newImage.GetComponent<CallObject>();
+            obj.Init(callsData[i]);
 
             // Добавляем обработчик события нажатия на картинку
             int index = i;  // Локальная переменная для замыкания
-            newImage.GetComponent<Button>().onClick.AddListener(() => OnImageClick(index));
+            obj.OnCall.AddListener(() => OnImageClick(index));
+
+            callObjects.Add(obj);
         }
     }
 
@@ -42,5 +47,14 @@ public class CallLogic : MonoBehaviour
         internalAudio.clip = callsData[index].internalAudio;
         modalWindow.SetActive(true); // Показываем модальное окно
         internalAudio.Play();
+    }
+
+
+    private void OnDisable()
+    {
+        foreach (var obj in callObjects)
+        {
+            obj.OnCall.RemoveAllListeners();
+        }
     }
 }
