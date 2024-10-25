@@ -18,7 +18,6 @@ public class CubeGame : MonoBehaviour
     private List<GameObject> target_cubes = new List<GameObject>();
     private Color targetColor; // ÷вет, который нужно выбрать
     public List<Color> availableColors = new List<Color> { Color.red, Color.green, Color.blue, Color.yellow };
-    public DataScriptableObject data;
 
     void Start()
     {
@@ -28,24 +27,18 @@ public class CubeGame : MonoBehaviour
         }
         StartNewGame();
     }
-    void LoadData()
-    {
-        points = data.points;
-    }
-    void SaveData()
-    {
-        data.points = points;
-    }
+
+
     public void StopGame()
     {
-        SaveData();
+        DataController.SaveData(points);
         ClearCubes();
     }
 
     public void StartNewGame()
     {
         ClearCubes();
-        LoadData();
+        points = DataController.LoadData();
         int lastIndex = targetColorText.text.LastIndexOf('\n');
         targetColorText.text = targetColorText.text.Substring(0, lastIndex + 1) + points.ToString();
         SetTargetColor();
@@ -113,7 +106,7 @@ public class CubeGame : MonoBehaviour
             Destroy(clickedCube);
             if (target_cubes.Count == 0)
             {
-                SaveData();
+                DataController.SaveData(points);
                 StartNewGame();
             }
         }

@@ -22,11 +22,15 @@ public class CallLogic : MonoBehaviour
     void Start()
     {
         GenerateGrid();
+
+        Debug.Log(DataController.OnPointsCountChanged);
+        DataController.OnPointsCountChanged.AddListener(PointsCountChanged);
     }
 
     // Генерация сетки 3x3 с изображениями
     void GenerateGrid()
     {
+        int currentPoints = DataController.LoadData();
         for (int i = 0; i < callsData.Count; i++)
         {
             GameObject newImage = Instantiate(callPrefab, gridParent);
@@ -38,6 +42,8 @@ public class CallLogic : MonoBehaviour
             obj.OnCall.AddListener(() => OnImageClick(index));
 
             callObjects.Add(obj);
+            
+            obj.CheckPoints(currentPoints);
         }
     }
 
@@ -49,12 +55,22 @@ public class CallLogic : MonoBehaviour
         internalAudio.Play();
     }
 
+    private void PointsCountChanged(int points)
+    {
+        foreach (var obj in callObjects)
+        {
+            obj.CheckPoints(points);
+        }
+    }
 
-    private void OnDisable()
+
+    private void OnDestroy()
     {
         foreach (var obj in callObjects)
         {
             obj.OnCall.RemoveAllListeners();
         }
+
+        DataController.OnPointsCountChanged.RemoveListener(PointsCountChanged);
     }
 }

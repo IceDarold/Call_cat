@@ -15,7 +15,7 @@ namespace Assets.Scripts.Call
         [SerializeField] private Image CallIcon;
         [SerializeField] private TextMeshProUGUI pointsNeedText;
         private Image mainImage;
-        private bool isEbabled;
+        private bool isEnabled;
         private  CallDataScriptableObject _dataSource;
         public void Init(CallDataScriptableObject dataSource)
         {
@@ -34,26 +34,37 @@ namespace Assets.Scripts.Call
                 CallIcon.enabled = false;
                 pointsNeedText.text = dataSource.pointsToOpen + " бушек";
 
-                isEbabled = false;
+                isEnabled = false;
             }
 
         }
 
-        private void OnDisable()
+        public void CheckPoints(int points)
+        {
+            button.interactable = points >= _dataSource.pointsToOpen || isEnabled;
+        }
+
+        private void OnDestroy()
         {
             button.onClick.RemoveListener(OnButtonClick);
         }
 
         private void OnButtonClick()
         {
-            if(isEbabled)
+            if(isEnabled)
             {
                 OnCall?.Invoke();
             }
             else
             {
-                // To Do check points
-                EnableCall();
+                int points = DataController.LoadData();
+                if( points >= _dataSource.pointsToOpen)
+                {
+                    EnableCall();
+                    DataController.SaveData(points - _dataSource.pointsToOpen);
+                    
+                }
+                
             }
         }
 
@@ -64,7 +75,7 @@ namespace Assets.Scripts.Call
             mainImage.color = Color.white;
             pointsNeedText.enabled = false;
 
-            isEbabled = true;
+            isEnabled = true;
         }
     }
 }
