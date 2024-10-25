@@ -5,17 +5,17 @@ using UnityEngine;
 public class UI : MonoBehaviour
 {
     public GameObject game_visual;
-    public GameObject calls_visual;
     public CubeGame game;
+    public CallUI callUI;
     public void GetBack()
     {
         game.StopGame();
         game_visual.SetActive(false);
-        calls_visual.SetActive(true);
+        callUI.UpdateUI();
     }
     public void Play()
     {
-        calls_visual.SetActive(false);
+        callUI.Finish();
         game_visual.SetActive(true);
         game.StartNewGame();
     }

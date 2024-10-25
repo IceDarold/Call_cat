@@ -973,8 +973,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   game_visual: {fileID: 31753662}
-  calls_visual: {fileID: 1397668997}
   game: {fileID: 1563365412}
+  callUI: {fileID: 791460377}
 --- !u!114 &791460374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,6 +1039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CallWindow: {fileID: 1019433429}
   MainWindow: {fileID: 109622410}
+  points: {fileID: 952340854}
+  data: {fileID: 11400000, guid: b34bb8035f1145f41b86f82322e0c852, type: 2}
+  calls_visual: {fileID: 1397668997}
 --- !u!1 &843750831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,19 +1747,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   callsData:
   - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
-  - {fileID: 11400000, guid: 4a0d7745fae37f5438d2b39e94f8d87b, type: 2}
+  - {fileID: 11400000, guid: 0055e38b3ddf1724996a68cec78a4594, type: 2}
+  - {fileID: 11400000, guid: 59217fd97588b76478e8f29d67f59fd6, type: 2}
+  - {fileID: 11400000, guid: 925757b51e8295b418b6537ad5f6f221, type: 2}
+  - {fileID: 11400000, guid: 37539b02c66071c488eafcea0e409608, type: 2}
+  - {fileID: 11400000, guid: 723b4a63fde206c43a7134b499b77baf, type: 2}
+  - {fileID: 11400000, guid: 8a96da48e5c658a489d9b5a6b7f4565b, type: 2}
+  - {fileID: 11400000, guid: c3a0c8ba7f0813a428104464bf985d41, type: 2}
   gridParent: {fileID: 1887838699}
   modalWindow: {fileID: 1019433429}
   internalImage: {fileID: 1453548127}
   internalAudio: {fileID: 1793655747}
   callPrefab: {fileID: 2306990837875343892, guid: 0d1298bc516cc6146a7982385823054a, type: 3}
+  data: {fileID: 11400000, guid: b34bb8035f1145f41b86f82322e0c852, type: 2}
+  lock_image: {fileID: 7482667652216324306, guid: 50625c3312a007645852f7c8f04949c0, type: 3}
+  priceTextPrefab: {fileID: 7285152045795105312, guid: 5e2e44353edbadb4cb5213b1199e0c56, type: 3}
 --- !u!1 &1397668997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,7 +2121,7 @@ MonoBehaviour:
   targetCat: {fileID: 2095786202}
   targetColorText: {fileID: 754815697}
   needCubesText: {fileID: 440144799}
-  numberOfCubes: 165
+  numberOfCubes: 56
   generationa_area: {fileID: 1894829192}
   availableColors:
   - {r: 1, g: 0, b: 0, a: 1}
