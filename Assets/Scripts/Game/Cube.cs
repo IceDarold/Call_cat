@@ -4,18 +4,28 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     [SerializeField] private ParticleSystem particles;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
     void OnMouseDown()
     {
-        particles.Play();
-        GetComponent<SpriteRenderer>().enabled = false;
-        StartCoroutine(Coroutine());
+        if (FindObjectOfType<CubeGame>().OnCubeClicked(gameObject))
+        {
+            StartCoroutine(Coroutine());
+        }
     }
 
 
     private IEnumerator Coroutine()
     {
+        particles.Play();
+        spriteRenderer.enabled = false;
         yield return new WaitForSeconds(1f);
-        FindObjectOfType<CubeGame>().OnCubeClicked(gameObject);
+        Destroy(gameObject);
         yield break;
     }
 }

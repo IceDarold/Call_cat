@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   externalImage: {fileID: 21300000, guid: 612a8c2685f05484a98288685c3a6581, type: 3}
   internalImage: {fileID: 21300000, guid: 612a8c2685f05484a98288685c3a6581, type: 3}
-  internalAudio: {fileID: 8300000, guid: 41969f13345db034baff9c312b1fd32b, type: 3}
+  internalAudio: {fileID: 8300000, guid: 83398ba7a9682cb469341ba08fbb5b35, type: 3}
