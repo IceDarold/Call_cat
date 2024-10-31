@@ -20,8 +20,10 @@ public class CubeGame : MonoBehaviour
 
     private Color targetColor; // ÷вет, который нужно выбрать
     public List<Color> availableColors = new List<Color> { Color.red, Color.green, Color.blue, Color.yellow };
+
     public DataScriptableObject data;
     public SoundController soundController;
+
 
     void Start()
     {
@@ -31,24 +33,18 @@ public class CubeGame : MonoBehaviour
         }
         StartNewGame();
     }
-    void LoadData()
-    {
-        points = data.points;
-    }
-    void SaveData()
-    {
-        data.points = points;
-    }
+
+
     public void StopGame()
     {
-        SaveData();
+        DataController.SaveData(points);
         ClearCubes();
     }
 
     public void StartNewGame()
     {
         ClearCubes();
-        LoadData();
+        points = DataController.LoadData();
         int lastIndex = targetColorText.text.LastIndexOf('\n');
         targetColorText.text = targetColorText.text.Substring(0, lastIndex + 1) + points.ToString();
         SetTargetColor();
@@ -118,7 +114,7 @@ public class CubeGame : MonoBehaviour
             
             if (target_cubes.Count == 0)
             {
-                SaveData();
+                DataController.SaveData(points);
                 StartNewGame();
             }
         }

@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using System.Collections.Generic;
 using TMPro;
-using System.ComponentModel;
+using Assets.Scripts.Call;
+
 
 public class CallLogic : MonoBehaviour
 {
@@ -20,35 +21,35 @@ public class CallLogic : MonoBehaviour
     public Sprite lock_image;
     public TextMeshProUGUI priceTextPrefab;
 
+
+    private List<CallObject> callObjects = new List<CallObject>();
+
+    //                             3x3
+
     void Start()
     {
         GenerateGrid();
+
+        Debug.Log(DataController.OnPointsCountChanged);
+        DataController.OnPointsCountChanged.AddListener(PointsCountChanged);
     }
 
     void GenerateGrid()
     {
+        int currentPoints = DataController.LoadData();
         for (int i = 0; i < callsData.Count; i++)
         {
             GameObject newImage = Instantiate(callPrefab, gridParent);
-            Image imgComponent = newImage.GetComponent<Image>();
-            if (callsData[i].price <= 0 || callsData[i].isOpen)
-            {
-                imgComponent.sprite = callsData[i].externalImage;
-                newImage.GetComponent<Button>().onClick.AddListener(() => OnImageClick(i, true));
-            }
-            else
-            {
-                Debug.Log("Instantiate" + i.ToString());
-                imgComponent.sprite = lock_image;
-                //Turn off call icon
-                newImage.GetComponentsInChildren<Image>()[1].gameObject.SetActive(false);
-                //Turn on text
+            var obj = newImage.GetComponent<CallObject>();
+            obj.Init(callsData[i]);
 
-                TextMeshProUGUI priceText = newImage.GetComponentInChildren<TextMeshProUGUI>(true);
-                priceText.gameObject.SetActive(true);
-                priceText.text = priceText.text.Substring(0, priceText.text.Length-1) + callsData[i].price.ToString();
-                newImage.GetComponent<Button>().onClick.AddListener(() => OnImageClick(i, false, imgComponent, priceText.gameObject));
-            }
+            //                                                 
+            int index = i;  //                                   
+            obj.OnCall.AddListener(() => OnImageClick(index,callsData[i].isOpen));
+
+            callObjects.Add(obj);
+            
+            obj.CheckPoints(currentPoints);
         }
     }
 
@@ -65,9 +66,9 @@ public class CallLogic : MonoBehaviour
         else
         {
             Debug.Log(callsData.Count.ToString() + index.ToString());
-            if (data.points >= callsData[index].price)
+            if (data.points >= callsData[index].pointsToOpen)
             {
-                data.points -= callsData[index].price;
+                data.points -= callsData[index].pointsToOpen;
                 callsData[index].isOpen = true;
                 Destroy(priceText);
                 image.sprite = callsData[index].externalImage;
@@ -75,4 +76,25 @@ public class CallLogic : MonoBehaviour
             }
         }
     }
+
+
+    private void PointsCountChanged(int points)
+    {
+        foreach (var obj in callObjects)
+        {
+            obj.CheckPoints(points);
+        }
+    }
+
+
+    private void OnDestroy()
+    {
+        foreach (var obj in callObjects)
+        {
+            obj.OnCall.RemoveAllListeners();
+        }
+
+        DataController.OnPointsCountChanged.RemoveListener(PointsCountChanged);
+    }
 }
+
