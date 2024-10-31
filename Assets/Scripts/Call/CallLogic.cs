@@ -44,8 +44,8 @@ public class CallLogic : MonoBehaviour
             obj.Init(callsData[i]);
 
             //                                                 
-            int index = i;  //                                   
-            obj.OnCall.AddListener(() => OnImageClick(index,callsData[i].isOpen));
+            int index = i;                               
+            obj.OnCall.AddListener(() => OnImageClick(index));
 
             callObjects.Add(obj);
             
@@ -53,8 +53,9 @@ public class CallLogic : MonoBehaviour
         }
     }
 
-    void OnImageClick(int index, bool isOpen, Image image=null, GameObject priceText=null)
+    void OnImageClick(int index,Image image=null, GameObject priceText=null)
     {
+        bool isOpen = callsData[index].isOpen;
         if (isOpen)
         {
             Debug.Log(callsData.Count.ToString() + index.ToString());
@@ -63,7 +64,7 @@ public class CallLogic : MonoBehaviour
             modalWindow.SetActive(true);
             internalAudio.Play();
         }
-        else
+        /*else
         {
             Debug.Log(callsData.Count.ToString() + index.ToString());
             if (data.points >= callsData[index].pointsToOpen)
@@ -74,7 +75,7 @@ public class CallLogic : MonoBehaviour
                 image.sprite = callsData[index].externalImage;
                 image.GetComponentsInChildren<Image>(true)[1].gameObject.SetActive(true);
             }
-        }
+        }*/
     }
 
 

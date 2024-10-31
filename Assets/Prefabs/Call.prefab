@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 140807105728690649}
   - component: {fileID: 4870215461922012115}
   - component: {fileID: 1970137210994931224}
-  - component: {fileID: 7994739443302223480}
+  - component: {fileID: 1285797408795233425}
   m_Layer: 5
   m_Name: Call
   m_TagString: Untagged
@@ -109,13 +109,12 @@ RectTransform:
   m_Children:
   - {fileID: 3638418989043306937}
   - {fileID: 5707238861761894793}
-  - {fileID: 1601464202551663465}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 46.9052, y: 8.7643}
-  m_SizeDelta: {x: 66.1898, y: 47.5286}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 44.1783, y: 47.5286}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &140807105728690649
 CanvasRenderer:
@@ -199,6 +198,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1285797408795233425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306990837875343892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5865377926290684e838b495b8ea559b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnCall:
+    m_PersistentCalls:
+      m_Calls: []
+  button: {fileID: 1970137210994931224}
+  CallIcon: {fileID: 6003131748786708596}
+  pointsNeedText: {fileID: 2072184879290847379}
 --- !u!1 &5093495043815124595
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,7 +33,8 @@ namespace Assets.Scripts.Call
                 mainImage.color = Color.gray;
                 CallIcon.enabled = false;
                 pointsNeedText.text = dataSource.pointsToOpen + " бушек";
-
+                pointsNeedText.enabled = true;
+                pointsNeedText.gameObject.SetActive(true);
                 isEnabled = false;
             }
 
@@ -74,7 +75,7 @@ namespace Assets.Scripts.Call
             CallIcon.enabled = true;
             mainImage.color = Color.white;
             pointsNeedText.enabled = false;
-
+            _dataSource.isOpen = true;
             isEnabled = true;
         }
     }
