@@ -15,6 +15,7 @@ public class Cube : MonoBehaviour
     {
         if (FindObjectOfType<CubeGame>().OnCubeClicked(gameObject))
         {
+            
             StartCoroutine(Coroutine());
         }
     }
