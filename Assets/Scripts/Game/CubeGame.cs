@@ -1,3 +1,4 @@
+using Assets.Scripts.Game;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,8 +17,13 @@ public class CubeGame : MonoBehaviour
     public Transform generationa_area;
     private List<GameObject> cubes = new List<GameObject>();
     private List<GameObject> target_cubes = new List<GameObject>();
+
     private Color targetColor; // ÷вет, который нужно выбрать
     public List<Color> availableColors = new List<Color> { Color.red, Color.green, Color.blue, Color.yellow };
+
+    public DataScriptableObject data;
+    public SoundController soundController;
+
 
     void Start()
     {
@@ -94,8 +100,9 @@ public class CubeGame : MonoBehaviour
                                generationa_area.position.y + generationa_area.localScale.y / 2), 0);
     }
 
-    public void OnCubeClicked(GameObject clickedCube)
+    public bool OnCubeClicked(GameObject clickedCube)
     {
+        bool res = false;
         Color cubeColor = clickedCube.GetComponent<Renderer>().material.color;
         if (cubeColor == targetColor)
         {
@@ -103,7 +110,8 @@ public class CubeGame : MonoBehaviour
             cubes.Remove(clickedCube);
             target_cubes.Remove(clickedCube);
 
-            Destroy(clickedCube);
+            res = true;
+            
             if (target_cubes.Count == 0)
             {
                 DataController.SaveData(points);
@@ -117,5 +125,8 @@ public class CubeGame : MonoBehaviour
         int lastIndex = targetColorText.text.LastIndexOf('\n');
         targetColorText.text = targetColorText.text.Substring(0, lastIndex + 1) + points.ToString();
         needCubesText.text = target_cubes.Count.ToString();
+        soundController.PlaySound(res);
+
+        return res;
     }
 }
