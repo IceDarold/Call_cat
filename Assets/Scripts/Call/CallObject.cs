@@ -23,7 +23,7 @@ namespace Assets.Scripts.Call
             mainImage= button.GetComponent<Image>();
             button.onClick.AddListener(OnButtonClick);
 
-            if( dataSource.pointsToOpen == 0 )
+            if( dataSource.pointsToOpen == 0  || dataSource.isOpen)
             {
                 EnableCall();
             }
