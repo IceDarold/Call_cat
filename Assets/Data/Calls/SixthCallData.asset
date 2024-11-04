@@ -15,5 +15,5 @@ MonoBehaviour:
   externalImage: {fileID: 21300000, guid: 9e2b58cef29234d48ae693d213efb495, type: 3}
   internalImage: {fileID: 21300000, guid: 9e2b58cef29234d48ae693d213efb495, type: 3}
   internalAudio: {fileID: 8300000, guid: be4b7faa1172a664c8088d7b53a3a0e3, type: 3}
-  price: 21
+  pointsToOpen: 50
   isOpen: 0
